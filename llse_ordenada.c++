@@ -11,43 +11,36 @@ void criaLista(PNo *l)
 {
     *l = NULL;
 }
-// void insereInicioLista(PNo *l, TInfo dado)
-// {
-//     PNo p = (PNo)malloc(sizeof(TNo));
-//     p->info = dado;
-//     p->prox = *l;
-//     *l = p;
-// }
 
+void insereInicioLista(PNo *l, TInfo dado)
+{
+     PNo p = (PNo)malloc(sizeof(TNo));
+     p->info = dado;
+     p->prox = *l;
+     *l = p;
+}
+//Insere na Lista Ordenada
 void insereListaOrdenada(PNo *l, TInfo dado)
 {
-    PNo list, p = (PNo)malloc(sizeof(TNo));
-    list = *l;
+    PNo aux, p = (PNo)malloc(sizeof(TNo));
     p->info = dado;
-    if(p)
+        if (*l == NULL || (*l)->info >= p->info) 
     {
-        if(list == NULL)
-        {
-            p->prox = NULL;
-            list = p;
+        p->prox = *l;
+        *l = p;
+    }
+    else {
+     
+        aux = *l;
+        while (aux->prox != NULL && aux->prox->info < p->info) {
+            aux = aux->prox;
         }
-        else if(p->info < (list)->info)
-        {
-            p->prox = list;
-            list = p;
-        }
-        else
-        {        
-            while (list->prox && p->info > list->prox->info)
-            {
-                list = list->prox;
-                p->prox = list->prox;
-                list->prox = p;
-            }
-            list = p;
-        }
+        p->prox = aux->prox;
+        aux->prox = p;
     }
 }
+
+
 void insereFimLista(PNo *l, TInfo dado)
 {
     PNo aux, p = (PNo)malloc(sizeof(TNo));
@@ -82,6 +75,35 @@ int eliminaInicioLista(PNo *l, TInfo *dado)
     {
         return 0;
     }
+}
+
+//Elimina Um elemento da lista ordenada 
+int eliminaListaOrdenada(PNo *l, TInfo dado)
+{
+    PNo anterior, p = (PNo)malloc(sizeof(TNo));
+    anterior = NULL;
+    p = *l;
+    while (p != NULL && p->info != dado)
+    {
+        anterior = p;
+        p = p->prox;
+    }
+    if(p == NULL)
+    {
+    return 0;
+    }
+    if(anterior == NULL)
+    {
+        *l = p->prox;
+    }
+    else
+    {
+        anterior->prox = p->prox;
+    }
+
+    free(p);
+
+    return 1;    
 }
 int eliminaFimLista(PNo *l, TInfo *dado)
 {
@@ -146,6 +168,7 @@ int mostraUltimoLista(PNo l, TInfo *dado)
         return 0;
     }
 }
+
 int mostraEnesimoLista(PNo l, int n, TInfo *dado)
 {
     PNo p;
@@ -169,8 +192,7 @@ int mostraEnesimoLista(PNo l, int n, TInfo *dado)
 }
 void terminaLista(PNo *l)
 {
-    TInfo v;
-    while (eliminaFimLista(l, &v))
+    while (eliminaListaOrdenada(l, 8))
         ;
 }
 
@@ -183,8 +205,8 @@ int main()
  cout << endl << "Criado!" << endl;
  cout << endl << "Inserindo Lista...";
  insereListaOrdenada(&lista, 1);
- insereListaOrdenada(&lista, 2);
  insereListaOrdenada(&lista, 4);
+ insereListaOrdenada(&lista, 2);
  insereListaOrdenada(&lista, 8);
  insereListaOrdenada(&lista, 16);
  cout << endl << "Inserido!" << endl;
@@ -192,9 +214,9 @@ int main()
  mostraLista(lista);
  cout << endl << "Mostrado!" << endl;
  cout << endl << "Excluindo Lista..." << endl;
- if (eliminaFimLista(&lista, &valor))
+ if (eliminaListaOrdenada(&lista, 8))
  {
- cout << "Valor: " << valor;
+ cout << "Valor: " << 8;
  }
  else
  {
