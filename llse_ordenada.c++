@@ -24,7 +24,7 @@ void insereListaOrdenada(PNo *l, TInfo dado)
 {
     PNo aux, p = (PNo)malloc(sizeof(TNo));
     p->info = dado;
-        if (*l == NULL || (*l)->info >= p->info) 
+    if (*l == NULL || (*l)->info >= p->info) 
     {
         p->prox = *l;
         *l = p;
@@ -90,7 +90,7 @@ int eliminaListaOrdenada(PNo *l, TInfo dado)
     }
     if(p == NULL)
     {
-    return 0;
+        return 0;
     }
     if(anterior == NULL)
     {
@@ -105,6 +105,28 @@ int eliminaListaOrdenada(PNo *l, TInfo dado)
 
     return 1;    
 }
+
+PNo buscaListaOrdenada(PNo l, TInfo dado) {
+	PNo p;
+	if (l) {
+		p = l;
+		while (p && dado > p->info) {
+			p = p->prox;
+		}
+		if (p) {
+			if (dado == p->info) {
+				return p;
+			} else {
+				return NULL;
+			}
+		} else {
+			return NULL;
+		}
+	} else {
+		return NULL;
+	}
+}
+
 int eliminaFimLista(PNo *l, TInfo *dado)
 {
     PNo p, ult, penult;
@@ -192,21 +214,27 @@ int mostraEnesimoLista(PNo l, int n, TInfo *dado)
 }
 void terminaLista(PNo *l)
 {
-    while (eliminaListaOrdenada(l, 8))
-        ;
+    PNo p = (PNo)malloc(sizeof(TNo));
+    p = *l;
+    while (p)
+    {
+        *l = p->prox;
+        free(p);
+        p = *l;
+    }
 }
 
 int main()
 {
- PNo lista;
+ PNo lista, aux;
  TInfo valor;
  cout << endl << "Criando Lista...";
  criaLista(&lista);
  cout << endl << "Criado!" << endl;
  cout << endl << "Inserindo Lista...";
- insereListaOrdenada(&lista, 1);
  insereListaOrdenada(&lista, 4);
  insereListaOrdenada(&lista, 2);
+ insereListaOrdenada(&lista, 1);
  insereListaOrdenada(&lista, 8);
  insereListaOrdenada(&lista, 16);
  cout << endl << "Inserido!" << endl;
@@ -235,6 +263,16 @@ int main()
  {
  cout << "Lista Vazia!";
  }
+ cout << endl << "Buscando Lista..." << endl;
+ aux = buscaListaOrdenada(lista, 2);
+ if (aux) {
+ cout << "Valor Encontrado: " << aux->info;
+ } 
+ else 
+ {		
+ cout << "Valor Nao Encontrado!";
+ }
+ cout << endl << "Buscado!" << endl;
  cout << endl << "Mostrado!" << endl;
  cout << endl << "Mostrando Segundo Lista..." << endl;
  if (mostraEnesimoLista(lista, 2, &valor))
