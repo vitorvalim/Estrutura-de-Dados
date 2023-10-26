@@ -40,17 +40,22 @@ int eliminaListaC(PNo *l, TInfo *dado)
         p = *l;
         if (p->prox == p)
         {
-
+            *dado = p->info;
+            p = NULL;
+            *l = p;
         }
         else
         {
-            
+            while(p->prox != p && p->prox != NULL)
+            {
+
+            }
         }
-            //...
+    return 1;
     }
     else
     {
-        //...
+    return 0;
     }
 }
 int contaNosListaC(PNo l)
@@ -120,5 +125,5 @@ int main() {
     mostraListaC(lista);
     cout << endl << "Mostrado!" << endl;
     cout << endl << "*****" << endl;
-    return 0;
+return 0;
 }
