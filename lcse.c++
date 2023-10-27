@@ -45,11 +45,19 @@ int eliminaListaC(PNo *l, TInfo *dado)
             *l = p;
         }
         else
-        {
-            while(p->prox != p && p->prox != NULL)
+        {   
+            while(p->prox != (*l) && p->info != *dado)
             {
-
+                q = p;
+                p = p->prox;
             }
+            q->prox = p->prox;
+            if(p == *l)
+            {
+                *l = q;
+            }
+            *dado = p->info;
+            free(p);
         }
     return 1;
     }
