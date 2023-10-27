@@ -59,7 +59,7 @@ int eliminaListaC(PNo *l, TInfo *dado)
             *dado = p->info;
             free(p);
         }
-    return 1;
+        return 1;
     }
     else
     {
