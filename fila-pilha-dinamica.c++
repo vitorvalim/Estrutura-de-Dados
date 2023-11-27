@@ -114,9 +114,6 @@ int main() {
 	cout << endl << "Criando Fila...";
     inicializacao(&fila);
     cout << endl << "Criado!" << endl;
-	cout << endl << "Mostrando Fila..." << endl;
-	impressao(fila);
-	cout << endl << "Mostrado!" << endl;
 	cout << endl << "Inserindo Fila..." << endl;
 //Inserindo valores na Fila
 	insercaoFim(&fila, 'A');
@@ -133,8 +130,6 @@ int main() {
 	}
 	cout << endl << "Excluido!" << endl;
 //Mostra após Excluido
-	cout << endl << "Mostrando Fila..." << endl;
-	impressao(fila);
 	cout << endl << "Mostrando Pilha..." << endl;
 	impressao(pilha);
 	cout << endl << "Mostrado!" << endl;
@@ -149,3 +144,4 @@ int main() {
 	return 0;
 
 }
+
