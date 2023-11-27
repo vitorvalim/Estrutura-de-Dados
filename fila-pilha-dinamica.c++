@@ -142,6 +142,4 @@ int main() {
 	cout << endl << "Terminado!" << endl;
 	
 	return 0;
-
 }
-
